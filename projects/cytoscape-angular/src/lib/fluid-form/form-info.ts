@@ -62,10 +62,10 @@ export class FieldInfo {
               /* Input only - same as HTML input (how to downcast in a template?) */
               public inputSize: number = 8,
               /* Select only either an array of object or the name of a model property or function that is/returns an array of objects */
-              public options?: object[] | string,
+              public options?: object[] | string[],
               /* In an options object, what field to display to the user (or function that returns a string
               given the option object and the model) */
-              public optionArrayLabelField?: string | Function,
+              public optionArrayLabelField?: string,
               /* In an options object, what field to return for the value of the option
               (or function that returns a string given the option object and the model) */
               public optionArrayValueField?: string | Function

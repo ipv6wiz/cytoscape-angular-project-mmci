@@ -2,7 +2,7 @@ import { StylesheetStyle } from 'cytoscape'
 import { FieldInfo, FieldsetInfo, FieldType, FormInfo } from '../fluid-form/form-info'
 
 class StyleFieldInfo extends FieldInfo {
-  constructor(styleName: string, type: FieldType, hint: string, options?: object[] | string) {
+  constructor(styleName: string, type: FieldType, hint: string, options?: object[] | string[]) {
     super(styleName, styleName, type, hint)
     this.options = options
   }
@@ -60,13 +60,13 @@ export function createStyleCoreFormInfo() {
 
 function fieldSorter(field1: FieldInfo, field2: FieldInfo): number {
   if (!field1) {
-    return field2 ? 1: 0
+    return field2 ? 1 : 0
   } else if (!field2) {
     return -1
   } else {
     const label1 = typeof field1.label === 'function' ? field1.label() : field1.label
     const label2 = typeof field2.label === 'function' ? field2.label() : field2.label
-    return label1.localeCompare(label2);
+    return label1.localeCompare(label2)
   }
 }
 
@@ -94,7 +94,7 @@ export function createStyleNodeFieldSets() {
   nodeFieldInfos.push(new StyleFieldInfo('font-style', 'FontStyle', 'A CSS font style to be applied to the label text.'))
   nodeFieldInfos.push(new StyleFieldInfo('font-weight', 'FontWeight', 'A CSS font weight to be applied to the label text.'))
   nodeFieldInfos.push(new StyleFieldInfo('text-max-width', 'string', 'The maximum width for wrapped text, applied when "text-wrap" is set to wrap. For only manual newlines (i.e.\\n), set a very large value like 1000px such that only your newline characters would apply.'))
-  let textWrapStyleFieldInfo = new StyleFieldInfo('text-wrap', 'options',
+  const textWrapStyleFieldInfo = new StyleFieldInfo('text-wrap', 'options',
     'A wrapping style to apply to the label text; may be "none" for no wrapping (including manual newlines ) or "wrap" for manual and/ or autowrapping.')
   textWrapStyleFieldInfo.options = [
     {label: 'none', value: 'none'},

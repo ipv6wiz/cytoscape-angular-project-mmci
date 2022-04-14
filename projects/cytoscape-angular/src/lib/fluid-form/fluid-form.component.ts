@@ -5,6 +5,7 @@ import { AsyncValidatorFn, FormControl, FormGroup, ValidatorFn } from '@angular/
 import { FormInfo } from './form-info'
 
 @Component({
+  // tslint:disable-next-line:component-selector
   selector: 'cyng-fluid-form',
   template: `
     <form [formGroup]="formGroup" [title]="formInfo?.title" (ngSubmit)="onSubmit()">
@@ -71,7 +72,7 @@ import { FormInfo } from './form-info'
     }
 
     .field:nth-child(n+4) {
-        margin-top: 1em; // otherwise overlap betwen a field and a floating label of the field below it
+        margin-top: 1em;
     }
 
     .fieldset {
@@ -95,17 +96,20 @@ export class FluidFormComponent implements OnInit, OnChanges, AfterViewInit, Aft
   }
 
   ngOnInit(): void {
+    // tslint:disable-next-line:no-console
     console.debug('FluidFormComponent this.formInfo:', JSON.stringify(this.formInfo))
-    let controls = {}
+    const controls = {}
     this.formInfo.fieldsets.forEach(fieldsetInfo => {
       fieldsetInfo.fieldInfos.forEach(fieldInfo => {
-        let modelValue = this.model[fieldInfo.modelProperty]
+        const modelValue = this.model[fieldInfo.modelProperty]
         // console.log('fieldInfo.modelProperty:', fieldInfo.modelProperty, ', modelValue:', modelValue)
         const validators: ValidatorFn[] = typeof fieldInfo.validators === 'function' ? fieldInfo.validators() : fieldInfo.validators
+        // tslint:disable-next-line:max-line-length
         const asyncValidators: AsyncValidatorFn[] = typeof fieldInfo.asyncValidators === 'function' ? fieldInfo.asyncValidators() : fieldInfo.asyncValidators
         const { updateOn } = fieldInfo
-        let formControl = new FormControl(modelValue, {validators, asyncValidators, updateOn })
+        const formControl = new FormControl(modelValue, {validators, asyncValidators, updateOn })
         formControl.valueChanges.subscribe( (change) => {
+          // tslint:disable-next-line:no-console
           console.debug('form control change ', JSON.stringify(change), ' for prop ', fieldInfo.modelProperty,
             ', changing current model value ', this.model[fieldInfo.modelProperty], ' to ', change)
           fieldInfo.setValue(change, this.model, this.modelChange)
@@ -117,10 +121,12 @@ export class FluidFormComponent implements OnInit, OnChanges, AfterViewInit, Aft
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+    // tslint:disable-next-line:no-console
     console.debug('ngOnChanges fluid-form changes:', JSON.stringify(changes))
-    if (changes['model']) {
-      const model = changes['model'].currentValue
-      for (let key of Object.keys(model)) {
+    if (changes.model) {
+      const model = changes.model.currentValue
+      for (const key of Object.keys(model)) {
+        // tslint:disable-next-line:no-console
         console.debug('ngOnChanges model key copying to form:', key)
         const control = this.formGroup?.controls[key]
         control ? control.setValue(model[key], { emitEvent: false }) : console.warn('no control for model key ', key)

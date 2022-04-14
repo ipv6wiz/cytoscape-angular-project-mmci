@@ -10,12 +10,12 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "tslib": "^2.3.0"
+    "tslib": "^2.3.1"
   },
   "peerDependencies": {
-    "@angular/common": "^12.1.2",
-    "@angular/core": "^12.1.2",
-    "cytoscape": "^3.19.0",
-    "cytoscape-dagre": "^2.3.2"
+    "@angular/common": "^13.3.3",
+    "@angular/core": "^13.3.3",
+    "cytoscape": "^3.21.1",
+    "cytoscape-dagre": "^2.4.0"
   }
 }
